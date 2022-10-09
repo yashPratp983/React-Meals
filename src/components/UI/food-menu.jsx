@@ -6,7 +6,7 @@ const foodMenu = (props) => {
     const [counter2, setCounter2] = useState(JSON.parse(localStorage.getItem(2)));
     const [counter3, setCounter3] = useState(JSON.parse(localStorage.getItem(3)));
     const [counter4, setCounter4] = useState(JSON.parse(localStorage.getItem(4)));
-
+    console.log(props.menu)
     useEffect(() => {
         localStorage.setItem(1, counter1)
         localStorage.setItem(2, counter2)
@@ -39,22 +39,27 @@ const foodMenu = (props) => {
     }
 
     return (
-        <div className={Styles.menu}>
-            {props.menu.map((item) => {
-                return (
-                    <div className={`${Styles.item} ${item.id === 4 && Styles.disappear} `} key={item.id}>
-                        <div>
-                            <h2>{item.name}</h2>
-                            <p>{item.description}</p>
-                            <h1>{item.price}</h1>
-                        </div>
-                        <div>
-                            <p className={Styles.amt}>{eval('counter' + item.id)}</p>
-                            <button className={Styles.button} onClick={clickHandler} value={item.id}>+ Add</button>
-                        </div>
-                    </div>
-                )
-            })}
+        <div className={Styles.menu}>{props.error ? <h1 className={Styles.loading}>Something went wrong</h1> :
+            props.isLoading ? <h1 className={Styles.loading}>Loading...</h1> :
+                props.menu.map((item) => {
+                    if (item != null) {
+                        return (
+                            <div className={`${Styles.item} ${item.id === 4 && Styles.disappear} `} key={item.id}>
+                                <div>
+                                    <h2>{item.name}</h2>
+                                    <p>{item.description}</p>
+                                    <h1>{item.price}</h1>
+                                </div>
+                                <div>
+                                    <p className={Styles.amt}>{eval('counter' + item.id)}</p>
+                                    <button className={Styles.button} onClick={clickHandler} value={item.id}>+ Add</button>
+                                </div>
+                            </div>
+                        )
+                    }
+                })
+        }
+
         </div>
     )
 }

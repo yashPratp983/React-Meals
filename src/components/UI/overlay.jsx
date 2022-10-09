@@ -1,4 +1,5 @@
 import Styles from './overlay.module.css'
+import OverlayForm from './overlay-form';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
@@ -58,6 +59,7 @@ const overlay = (props) => {
 
     return (
         <div className={Styles.overlay}>
+            <OverlayForm amount={counter1 * 22.98 + counter2 * 16.50 + counter3 * 12.99 + counter4 * 18.56} counter1={counter1} counter2={counter2} counter3={counter3} counter4={counter4} />
             {props.menu.map((item) => {
                 if (eval('counter' + item.id) > 0) {
                     return (
@@ -77,9 +79,7 @@ const overlay = (props) => {
                 }
             })}
             <div className={Styles.footerOverlay}>
-                <h2>Amount: ${counter1 * 22.98 + counter2 * 16.50 + counter3 * 12.99 + counter4 * 18.56}</h2>
                 <button className={Styles.button} onClick={clickHandler}>Cancel</button>
-                <button className={Styles.button} onClick={orderHandler}>Order</button>
             </div>
         </div>
     )
