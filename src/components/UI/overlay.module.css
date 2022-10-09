@@ -3,7 +3,7 @@
     z-index: 50;
     width: 60%;
     right: 20%;
-    top: 20%;
+    top: 7.5%;
     background-color: #f2f2f2;
     /* margin: 15% 25%; */
     display: flex;
@@ -16,24 +16,20 @@
 }
 
 .footerOverlay {
-    margin: 2%;
+    margin: 4% 10%;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    padding: 0.75% 5%;
+    justify-content: right;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .items {
-    margin: 0% 5%;
+    margin: 0% 10%;
+    padding-bottom: 3%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid #ccc;
-    padding: 2%;
     flex-wrap: wrap;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
