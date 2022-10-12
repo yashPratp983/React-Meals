@@ -1,41 +1,31 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import { countContext } from '../../App';
 import Styles from './food-menu.module.css'
 const foodMenu = (props) => {
-    const [counter1, setCounter1] = useState(JSON.parse(localStorage.getItem(1)));
-    const [counter2, setCounter2] = useState(JSON.parse(localStorage.getItem(2)));
-    const [counter3, setCounter3] = useState(JSON.parse(localStorage.getItem(3)));
-    const [counter4, setCounter4] = useState(JSON.parse(localStorage.getItem(4)));
+    const counter = useContext(countContext);
     console.log(props.menu)
     useEffect(() => {
-        localStorage.setItem(1, counter1)
-        localStorage.setItem(2, counter2)
-        localStorage.setItem(3, counter3)
-        localStorage.setItem(4, counter4)
-    }, [counter1, counter2, counter3, counter4])
-
-    useEffect(() => {
-        setCounter1(JSON.parse(localStorage.getItem(1)));
-        setCounter2(JSON.parse(localStorage.getItem(2)));
-        setCounter3(JSON.parse(localStorage.getItem(3)));
-        setCounter4(JSON.parse(localStorage.getItem(4)));
-    }, [props.reload])
+        localStorage.setItem(1, counter.count.counter1)
+        localStorage.setItem(2, counter.count.counter2)
+        localStorage.setItem(3, counter.count.counter3)
+        localStorage.setItem(4, counter.count.counter4)
+    }, [counter.count.counter1, counter.count.counter2, counter.count.counter3, counter.count.counter4])
 
     const clickHandler = (event) => {
         console.log(event.target.value)
         if (event.target.value == 1) {
-            setCounter1(counter1 + 1);
+            counter.dispatch({ type: "count1", operation: '+' });
         }
         else if (event.target.value == 2) {
-            setCounter2(counter2 + 1);
+            counter.dispatch({ type: "count2", operation: '+' });
         }
         else if (event.target.value == 3) {
-            setCounter3(counter3 + 1);
+            counter.dispatch({ type: "count3", operation: '+' });
         }
         else if (event.target.value == 4) {
-            setCounter4(counter4 + 1);
+            counter.dispatch({ type: "count4", operation: '+' });
         }
-        props.counter(counter1 + counter2 + counter3 + counter4 + 1);
+        props.counter(counter.count.counter1 + counter.count.counter2 + counter.count.counter3 + counter.count.counter4 + 1);
     }
 
     return (
@@ -51,7 +41,7 @@ const foodMenu = (props) => {
                                     <h1>{item.price}</h1>
                                 </div>
                                 <div>
-                                    <p className={Styles.amt}>{eval('counter' + item.id)}</p>
+                                    <p className={Styles.amt}>{eval('counter.count.counter' + item.id)}</p>
                                     <button className={Styles.button} onClick={clickHandler} value={item.id}>+ Add</button>
                                 </div>
                             </div>
