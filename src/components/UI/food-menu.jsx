@@ -1,31 +1,12 @@
 import { useState, useContext, useEffect } from 'react';
-import { countContext } from '../../App';
+import CartContext from './cartContext';
 import Styles from './food-menu.module.css'
 const foodMenu = (props) => {
-    const counter = useContext(countContext);
-    console.log(props.menu)
-    useEffect(() => {
-        localStorage.setItem(1, counter.count.counter1)
-        localStorage.setItem(2, counter.count.counter2)
-        localStorage.setItem(3, counter.count.counter3)
-        localStorage.setItem(4, counter.count.counter4)
-    }, [counter.count.counter1, counter.count.counter2, counter.count.counter3, counter.count.counter4])
+    const contex = useContext(CartContext);
 
     const clickHandler = (event) => {
         console.log(event.target.value)
-        if (event.target.value == 1) {
-            counter.dispatch({ type: "count1", operation: '+' });
-        }
-        else if (event.target.value == 2) {
-            counter.dispatch({ type: "count2", operation: '+' });
-        }
-        else if (event.target.value == 3) {
-            counter.dispatch({ type: "count3", operation: '+' });
-        }
-        else if (event.target.value == 4) {
-            counter.dispatch({ type: "count4", operation: '+' });
-        }
-        props.counter(counter.count.counter1 + counter.count.counter2 + counter.count.counter3 + counter.count.counter4 + 1);
+        contex.addItem(event.target.value)
     }
 
     return (
@@ -41,7 +22,7 @@ const foodMenu = (props) => {
                                     <h1>{item.price}</h1>
                                 </div>
                                 <div>
-                                    <p className={Styles.amt}>{eval('counter.count.counter' + item.id)}</p>
+                                    <p className={Styles.amt}>{contex.items[item.id]}</p>
                                     <button className={Styles.button} onClick={clickHandler} value={item.id}>+ Add</button>
                                 </div>
                             </div>

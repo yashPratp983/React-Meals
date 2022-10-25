@@ -1,8 +1,10 @@
 import Styles from './overlayForm.module.css'
 import useApi from '../../hooks/useApi'
 import useInput from '../../hooks/useInput';
-import { useEffect, useState } from 'react';
+import CartContext from './cartContext';
+import { useEffect, useState, useContext } from 'react';
 const overlayForm = (props) => {
+    const contex = useContext(CartContext)
     const [data, setData] = useState('');
     const [formIsValid, setFormIsValid] = useState(false);
     const { isLoading, error, sendRequest: placeOrder } = useApi();
@@ -28,12 +30,6 @@ const overlayForm = (props) => {
         isInvalid: amountIsInvalid,
         reset: amountReset } = useInput(value => value.trim() !== '' && value == props.amount)
 
-
-
-    // const { isLoading: isLoading,
-    //     error: error,
-    //     sendRequest: sendRequest } = useApi(request, '')
-
     const submitHandler = (event) => {
         event.preventDefault();
         nameBlurHandler();
@@ -50,16 +46,17 @@ const overlayForm = (props) => {
             name: enteredname,
             amount: enteredAmount,
             address: enteredAddress,
-            '1': props.counter1,
-            '2': props.counter2,
-            '3': props.counter3,
-            '4': props.counter4,
+            '1': contex.items['1'],
+            '2': contex.items['2'],
+            '3': contex.items['3'],
+            '4': contex.items['4'],
         })
 
-
+        props.cartShow();
         nameReset();
         addressReset();
         amountReset();
+
     }
 
     useEffect(() => {
@@ -132,8 +129,8 @@ const overlayForm = (props) => {
                 )}
             </div>
             <div className='form-actions'>
-                <h2>Amount: ${props.amount}</h2>
-                <button id='button'>Order</button>
+                <h2>Amount: ${contex.totalPrice}</h2>
+                <button id='button' type='submit'>Order</button>
             </div>
         </form>
     );
